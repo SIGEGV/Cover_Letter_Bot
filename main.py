@@ -1,3 +1,5 @@
+from docx import Document
+
 cover_letter_template = """
 I am excited to apply for the {role} position at {company_name}. With a strong foundation in backend development and a passion for crafting efficient and scalable systems, I am eager to contribute to your mission of creating innovative tools that empower developers to work smarter and faster.
 
@@ -21,22 +23,24 @@ Yash Dobriyal
 [Resume Link](https://drive.google.com/file/d/1NRLSv8JVOyH1cgRc1VsT_sj7Pk6xz0sf/view?usp=drive_link)
 """
 
-
 def generate_cover_letter(company_name, role):
-    cover_letter = cover_letter_template.format(company_name=company_name, role=role)
-    return cover_letter
+    return cover_letter_template.format(company_name=company_name, role=role)
+
+def save_to_word(cover_letter, file_path):
+    doc = Document()
+    doc.add_paragraph(cover_letter)
+    doc.save(file_path)
 
 def main():
     company_name = input("Enter the company name: ")
     role = input("Enter the role you're applying for: ")
     
     cover_letter = generate_cover_letter(company_name, role)
-    file_path = "cover_letter.txt"
+    file_path = "cover_letter.docx"
     
-    with open(file_path, "w") as file:
-        file.write(cover_letter)
+    save_to_word(cover_letter, file_path)
     
     print(f"Your cover letter has been saved to {file_path}")
-    
+
 if __name__ == "__main__":
     main()
